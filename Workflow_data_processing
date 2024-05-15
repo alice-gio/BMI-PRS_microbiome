@@ -1,0 +1,13 @@
+1. Convert the data sets to .vcf.gz format.
+plink2 --pfile data1 --export vcf bgz vcf-dosage=DS-force --out data1
+
+2. index gz files /ludc/Tools/Software/bcftools/1.18/bin/bcftools --index BMI_snp_chr9.vcf.gz
+
+3. Merge the .vcf.gz files using bcftools
+
+3.1 list vcf
+  ls *.vcf>list_vcf
+3.2 sort
+
+3.3 merge
+/ludc/Tools/Software/bcftools/1.18/bin/bcftools concat  -f list_vcf_sorted -o BMI_snp_allchr
