@@ -1,7 +1,8 @@
-1. Convert the data sets to .vcf.gz format.
-plink2 --pfile data1 --export vcf bgz vcf-dosage=DS-force --out data1
+1. Convert the vcf to .vcf.gz format.
 
-2. index gz files /ludc/Tools/Software/bcftools/1.18/bin/bcftools --index BMI_snp_chr9.vcf.gz
+convert_to_vcf_gz.sh
+
+2. Index gz files
 
 3. Merge the .vcf.gz files using bcftools
 
@@ -9,5 +10,12 @@ plink2 --pfile data1 --export vcf bgz vcf-dosage=DS-force --out data1
   ls *.vcf>list_vcf
 3.2 sort
 
-3.3 merge
+sort -Vt _ -k3 list_vcf>list_vcf_sorted
+
+3.3 merge vcfs
 /ludc/Tools/Software/bcftools/1.18/bin/bcftools concat  -f list_vcf_sorted -o BMI_snp_allchr
+
+
+4. csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_males_rsid_beta --out BMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
+
+
