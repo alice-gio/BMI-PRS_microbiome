@@ -1,3 +1,8 @@
+SCAPIS
+extract_snps.sh
+MOS
+extract_snpsMOS.sh
+
 1. Convert the vcf to .vcf.gz format.
 
 ./convert_to_vcf_gz.sh
