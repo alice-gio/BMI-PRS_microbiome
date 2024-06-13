@@ -1,8 +1,9 @@
 1. Convert the vcf to .vcf.gz format.
 
-convert_to_vcf_gz.sh
+./convert_to_vcf_gz.sh
 
 2. Index gz files
+./index_merge_vcf.sh 
 
 3. Merge the .vcf.gz files using bcftools
 
@@ -13,9 +14,11 @@ convert_to_vcf_gz.sh
 sort -Vt _ -k3 list_vcf>list_vcf_sorted
 
 3.3 merge vcfs
-/ludc/Tools/Software/bcftools/1.18/bin/bcftools concat  -f list_vcf_sorted -o BMI_snp_allchr
+csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o BMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
+csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o WHR_AdjBMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/WHR_AdjBMI/condor_output/
 
-
-4. csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_males_rsid_beta --out BMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
-
+4. 
+plink=/ludc/Tools/Software/Plink/plink.2.0_a_5.8
+csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_males_rsid_beta --out BMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf WHR_AdjBMI_snp_allchr --score WHR_AdjBMI_females_rsid_beta --out WHR_AdjBMI_females" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/WHR_AdjBMI/condor_output/
 
