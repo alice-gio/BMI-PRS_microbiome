@@ -22,11 +22,27 @@ extract_snpsMOS.sh
 sort -Vt _ -k3 list_vcf>list_vcf_sorted
 
 3.3 merge vcfs
+SCAPIS
 csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o BMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
 csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o WHR_AdjBMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/WHR_AdjBMI/condor_output/
+MOS
+csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o BMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/BMI/condor_output/
+csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o WHR_AdjBMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/WHR_AdjBMI/condor_output/
+csubmit.sh -b /ludc/Tools/Software/bcftools/1.18/bin/bcftools -a "concat  -f list_vcf_sorted -o Waist_AdjBMI_snp_allchr" -m 10000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/Waist_AdjBMI/condor_output/
+
+
 
 4. 
-plink=/ludc/Tools/Software/Plink/plink.2.0_a_5.8
+plink=/ludc/Tools/Software/Plink/plink.2.0_a_5.8 #check the latest version available in the server
+SCAPIS
 csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_males_rsid_beta --out BMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/BMI/condor_output/
 csubmit.sh -b $plink/plink2 -a "--vcf WHR_AdjBMI_snp_allchr --score WHR_AdjBMI_females_rsid_beta --out WHR_AdjBMI_females" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/WHR_AdjBMI/condor_output/
+MOS
+csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_combined_rsid_beta --out BMI_combined" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/BMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_females_rsid_beta --out BMI_females" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/BMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf BMI_snp_allchr --score BMI_males_rsid_beta --out BMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/BMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf WHR_AdjBMI_snp_allchr --score WHR_AdjBMI_males_rsid_beta --out WHR_AdjBMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/WHR_AdjBMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf Waist_AdjBMI_snp_allchr --score Waist_AdjBMI_males_rsid_beta --out Waist_AdjBMI_males" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/Waist_AdjBMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf Waist_AdjBMI_snp_allchr --score Waist_AdjBMI_combined_rsid_beta --out Waist_AdjBMI_combined" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/Waist_AdjBMI/condor_output/
+csubmit.sh -b $plink/plink2 -a "--vcf Waist_AdjBMI_snp_allchr --score Waist_AdjBMI_females_rsid_beta --out Waist_AdjBMI_females" -m 4000 -p /ludc/Active_Projects/obesity_PRS/Public/MOS/Waist_AdjBMI/condor_output/
 
